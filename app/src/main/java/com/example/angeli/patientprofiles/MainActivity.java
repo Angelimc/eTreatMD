@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar pb;
     private ListView lv;
-    private List<String> patientList;
+    private List<String> patientNameList;
+    private List<Patient> patientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +35,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = (String) lv.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this,Profile.class);
-                intent.putExtra("name", name);
+                intent.putExtra("data", patientList.get(position));
                 startActivity(intent);
             }
         });
     }
 
 
-    public void PatientAdapter(String json){
-        patientList = JsonParser.parse(json);
+    private void PatientAdapter(String json){
+        patientNameList = JsonParser.parseName(json);
+        patientList = JsonParser.parseData(json);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, patientList);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, patientNameList);
         lv.setAdapter(adapter);
     }
 

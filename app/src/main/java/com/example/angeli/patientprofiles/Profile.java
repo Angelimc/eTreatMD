@@ -6,17 +6,20 @@ import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
 
-        TextView tv;
+        private TextView textName;
+        private TextView textId;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_profile);
-            tv = (TextView)findViewById(R.id.textView);
+            textName = (TextView)findViewById(R.id.textView1);
+            textId = (TextView)findViewById(R.id.textView2);
 
-            //store the text in variable
-            String name = getIntent().getExtras().getString("name");
-            //display text
-            tv.setText(name);
+            Patient patient = (Patient) getIntent().getSerializableExtra("data");
+            String name = "name: " + patient.getName();
+            String id = "id: " + patient.getId();
+            textName.setText(name);
+            textId.setText(id);
     }
 }

@@ -9,17 +9,40 @@ import java.util.List;
 
 public class JsonParser {
 
-    public static List parse(String json){
+    public static List<String> parseName(String json){
 
         try {
             JSONArray jsonArray = new JSONArray(json);
-            List patientList = new ArrayList<>();
+            List<String> patientNameList = new ArrayList<>();
 
             int i = 0;
             while (i < jsonArray.length()){
                 JSONObject jb = jsonArray.getJSONObject(i);
 
-                patientList.add(jb.getString("name"));
+                patientNameList.add(jb.getString("name"));
+                i++;
+            }
+
+            return patientNameList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static List<Patient> parseData(String json){
+
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            List<Patient> patientList = new ArrayList<>();
+
+            int i = 0;
+            while (i < jsonArray.length()){
+                JSONObject jb = jsonArray.getJSONObject(i);
+                Patient patient = new Patient(jb.getString("name"), jb.getString("id"));
+
+                patientList.add(patient);
                 i++;
             }
 
