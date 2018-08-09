@@ -34,7 +34,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Patients");
+            getSupportActionBar().setTitle("Profile");
         }
 
         textName = (TextView)findViewById(R.id.textView1);
