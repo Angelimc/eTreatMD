@@ -22,33 +22,36 @@ import java.util.Date;
 
 public class Profile extends AppCompatActivity {
 
-        private TextView textName;
-        private TextView textId;
-        private ImageView imageView;
-        private Button takePictureButton;
-        private Uri file;
+    private TextView textName;
+    private TextView textId;
+    private ImageView imageView;
+    private Button takePictureButton;
+    private Uri file;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_profile);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
-            textName = (TextView)findViewById(R.id.textView1);
-            textId = (TextView)findViewById(R.id.textView2);
-            takePictureButton = (Button) findViewById(R.id.button_image);
-            imageView = (ImageView) findViewById(R.id.imageview);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Patients");
+        }
 
-            Patient patient = (Patient) getIntent().getSerializableExtra("data");
-            String name = "name: " + patient.getName();
-            String id = "id: " + patient.getId();
-            textName.setText(name);
-            textId.setText(id);
+        textName = (TextView)findViewById(R.id.textView1);
+        textId = (TextView)findViewById(R.id.textView2);
+        takePictureButton = (Button) findViewById(R.id.button_image);
+        imageView = (ImageView) findViewById(R.id.imageview);
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                System.out.println("takePictureButton disabled");
-                takePictureButton.setEnabled(false);
-                ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
-            }
+        Patient patient = (Patient) getIntent().getSerializableExtra("data");
+        String name = "name: " + patient.getName();
+        String id = "id: " + patient.getId();
+        textName.setText(name);
+        textId.setText(id);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            takePictureButton.setEnabled(false);
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
     }
 
     @Override
@@ -57,7 +60,6 @@ public class Profile extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 takePictureButton.setEnabled(true);
-                System.out.println("takePictureButton enabled");
             }
         }
     }

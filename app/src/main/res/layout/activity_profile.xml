@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:onClick="takePicture"
-            android:text="Take a picture!" android:layout_alignParentBottom="true"
+            android:text="Take a picture" android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"/>
 
     <TextView

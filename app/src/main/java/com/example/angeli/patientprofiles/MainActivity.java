@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Patients");
+        }
+
         pb = (ProgressBar) findViewById(R.id.progressBar);
         lv = (ListView) findViewById(R.id.listView);
         /*fetch data from the web*/
@@ -46,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private void PatientAdapter(String json){
         patientNameList = JsonParser.parseName(json);
         patientList = JsonParser.parseData(json);
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, patientNameList);
         lv.setAdapter(adapter);
